@@ -1,0 +1,15 @@
+buildType:
+  default: debug
+  choices:
+    debug:
+      short: Debug
+      long: Unoptimized, with debug information
+      buildType: Debug
+    validation:
+      short: Validation
+      long: Optimized for speed with debug information
+      buildType: Validation
+    release:
+      short: Release
+      long: Optimize generated code, ready to ship
+      buildType: Release
