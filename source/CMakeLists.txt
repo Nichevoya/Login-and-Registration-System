@@ -4,7 +4,9 @@ if (UNIX)
     add_definitions(-DUNIX)
     set(COMPILATION_FLAGS
         -std=c++20 
-        -Wall -Wextra -Werror -Wpedantic -g ${COMPILATION_FLAGS_FROM_BUILD_TYPE} 
+        # -fsanitize=address -fsanitize=leak 
+        -Wall -Wextra -Werror -Wpedantic -g 
+        ${COMPILATION_FLAGS_FROM_BUILD_TYPE} 
     )
     set(LARS_BINARY "lars.app")
 
@@ -12,7 +14,8 @@ elseif(WIN32)
     add_definitions(-DWIN32)
     set(COMPILATION_FLAGS
         /std:c++20 
-        /W4 /Zi ${COMPILATION_FLAGS_FROM_BUILD_TYPE} 
+        /W4 /Zi 
+        ${COMPILATION_FLAGS_FROM_BUILD_TYPE} 
     )
     set(LARS_BINARY "lars")
 
@@ -21,6 +24,12 @@ endif()
 set(INCLUDE_DIRECTORIES 
     "${CMAKE_SOURCE_DIR}/build/_deps/cxxopts-src/include"
     "${CMAKE_SOURCE_DIR}/build/_deps/phoenix-src/source"
+)
+
+set(BINARY_LINK_FLAGS
+    # -fsanitize=address 
+    # -fsanitize=leak 
+    # -static-libasan 
 )
 
 set(LIBRARY_LINK_FLAGS 
@@ -39,6 +48,12 @@ add_executable(${LARS_BINARY}
 
 target_compile_options(${LARS_BINARY} PRIVATE 
     ${COMPILATION_FLAGS}
+)
+
+# ------------------------------- link binary ------------------------------ 
+
+target_link_options(${LARS_BINARY} PRIVATE 
+    ${BINARY_LINK_FLAGS}
 )
 
 # ----------------------------- link libraries ----------------------------- 
@@ -60,4 +75,4 @@ set_target_properties(${LARS_BINARY} PROPERTIES
 )
 
 # --------------------------------- package -------------------------------- 
-include("${CMAKE_SOURCE_DIR}/share/install.cmake")
+include("${CMAKE_SOURCE_DIR}/.cmake/install/lars.cmake")
