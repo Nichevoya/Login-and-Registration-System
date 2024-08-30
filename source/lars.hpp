@@ -68,11 +68,11 @@ namespace lars {
                     } break;
 
                 case phoenix::experimental::hash("help"): 
-                    std::cout << "[lars]: Displaying help" << std::endl
-                    << "\thelp\t\tdisplay this message" << std::endl
-                    << "\tregister\tregister a user with given credentials and create a username.txt file" << std::endl
-                    << "\tlogin\t\tlogin a user with the registered credentials" << std::endl
-                    << "\tquit\t\texit the application" << std::endl;
+                    std::cout << "[lars]: Displaying help" << std::endl << std::endl
+                    << "help\t\tdisplay this message" << std::endl
+                    << "register\tregister a user with given credentials and create a username.txt file" << std::endl
+                    << "login\t\tlogin a user with the registered credentials" << std::endl
+                    << "quit\t\texit the application" << std::endl << std::endl;
                     break;
 
                 case phoenix::experimental::hash("quit"): 
